@@ -8,9 +8,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Sequence;
 
 import org.apache.commons.io.IOUtils;
-
 import org.ddmal.jmei2midi.MeiSequence;
 
 import ca.mcgill.music.ddmal.mei.MeiXmlReader.MeiXmlReadException;
@@ -26,9 +27,9 @@ public class ConversionLogic {
 			e1.printStackTrace();
 		}
 
-		MeiSequence sequence = null;
+		MeiSequence Msequence = null;
 		try {
-			sequence = new MeiSequence(meiFile);
+			Msequence = new MeiSequence(meiFile);
 		} catch (MeiXmlReadException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,16 +38,18 @@ public class ConversionLogic {
 			e.printStackTrace();
 		}
 		
+		MidiSystem.write(Msequence.getSequence(), 1, new File("temp.midi"));
+		File midi = new File("temp.midi");
+		outputStream = new FileOutputStream(midi);
+		
 		@Cleanup
 		PrintWriter printWriter = new PrintWriter(outputStream);
-		printWriter.write(meiFile.getName());
 	}
 
 	public static File stream2File(InputStream inputStream) throws IOException {
 		final String prefix = "test";
 		final String suffix = ".midi";
 		final File tempFile = File.createTempFile(prefix, suffix);
-		tempFile.deleteOnExit();
 		try(FileOutputStream outputStream = new FileOutputStream(tempFile)) {
 			IOUtils.copy(inputStream, outputStream);
 		}

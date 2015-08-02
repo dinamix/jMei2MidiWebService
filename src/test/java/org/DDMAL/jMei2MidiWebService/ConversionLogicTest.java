@@ -15,7 +15,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class ConversionLogicTest {
-
+	
+	@Ignore
 	@Test
 	public void testMei2Midi() throws IOException {
 		File input = new File("./src/test/java/TestResources/Input");
