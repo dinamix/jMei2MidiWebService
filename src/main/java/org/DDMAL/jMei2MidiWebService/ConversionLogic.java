@@ -39,7 +39,8 @@ public class ConversionLogic {
 			e.printStackTrace();
 		}
 		
-		MidiSystem.write(Msequence.getSequence(), 1, File.createTempFile("temp", ".midi"));
+		File tempFile = File.createTempFile("temp", ".midi");
+		MidiSystem.write(Msequence.getSequence(), 1, tempFile);
 		InputStream midi = new FileInputStream("temp.midi");
 		IOUtils.copy(midi, outputStream);
 	}
