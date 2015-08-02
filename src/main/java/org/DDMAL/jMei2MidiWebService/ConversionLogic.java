@@ -18,9 +18,7 @@ import lombok.Cleanup;
 
 public class ConversionLogic {
 	public void mei2Midi(InputStream inputStream, OutputStream outputStream) throws IOException {
-		byte[] test = {'l','o','l'};
-		outputStream.write(test);
-		/*File meiFile = null;
+		File meiFile = null;
 		try {
 			meiFile = stream2File(inputStream);
 		} catch (IOException e1) {
@@ -41,7 +39,7 @@ public class ConversionLogic {
 		
 		@Cleanup
 		PrintWriter printWriter = new PrintWriter(outputStream);
-		printWriter.write(meiFile.getName());*/
+		printWriter.write(meiFile.getName());
 	}
 
 	public static File stream2File(InputStream inputStream) throws IOException {
