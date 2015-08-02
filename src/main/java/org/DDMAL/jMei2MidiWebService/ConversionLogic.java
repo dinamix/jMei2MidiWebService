@@ -1,6 +1,7 @@
 package org.DDMAL.jMei2MidiWebService;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,12 +39,9 @@ public class ConversionLogic {
 			e.printStackTrace();
 		}
 		
-		MidiSystem.write(Msequence.getSequence(), 1, new File("temp.midi"));
-		File midi = new File("temp.midi");
-		outputStream = new FileOutputStream(midi);
-		
-		@Cleanup
-		PrintWriter printWriter = new PrintWriter(outputStream);
+		MidiSystem.write(Msequence.getSequence(), 1, File.createTempFile("temp", ".midi"));
+		InputStream midi = new FileInputStream("temp.midi");
+		IOUtils.copy(midi, outputStream);
 	}
 
 	public static File stream2File(InputStream inputStream) throws IOException {
